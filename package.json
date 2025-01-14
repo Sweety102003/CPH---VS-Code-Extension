@@ -1,0 +1,47 @@
+{
+  "name": "cph-leetcode",
+  "displayName": "cph-leetcode",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cph-leetcode.fetchTestCases",
+        "title": "Fetch leetcode test cases"
+      },
+      {
+        "command":"cph-leetcode.createCodeEditor",
+        "title":"create code editor"
+      },
+      {
+        "command":"cph-leetcode.runTestCases",
+        "title":"run test cases"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.96.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.16.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "puppeteer": "^24.0.0"
+  }
+}
