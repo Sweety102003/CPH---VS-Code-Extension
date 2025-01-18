@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = async () => {
     const language = await vscode.window.showQuickPick(['cpp', 'py', 'java', 'js'], {
-        placeHolder: 'Select your programming language',
+        placeHolder: 'Select your programming language ',
     });
 
     if (!language) {

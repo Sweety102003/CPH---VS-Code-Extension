@@ -32,11 +32,7 @@ module.exports = async () => {
     }
 };
 
-/**
- * Fetches test cases from the given LeetCode problem URL using Puppeteer and Cheerio.
- * @param {string} url
- * @returns {Promise<{ input: string, output: string }[]>}
- */
+
 async function fetchTestCases(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -46,22 +42,15 @@ async function fetchTestCases(url) {
 
     await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-    // Wait for the content to load
     await page.waitForSelector("pre");
-    // Get the HTML content of the page
     const pageContent = await page.content();
-    // console.log('Page Content:', pageContent);  // Log the content for debugging
-// console.log(pageContent);
-    // Load the page content into Cheerio to parse it
     const $ = cheerio.load(pageContent);
 
-    // Extract test cases using Cheerio (general selector)
     const testCases = [];
     $('pre').each((index, element) => {
         const preContent = $(element).text().trim();
         if (preContent.includes('Input:')) {
             const input = preContent.split('Input:')[1]?.split('Output:')[0]?.trim();
-            // const output = preContent.split('Output:')[1]?.trim();
             const outputMatch = preContent.match(/Output:\s*(\[[^\]]+\])/);
             if (input && outputMatch) {
                 const output = outputMatch[1]; 
@@ -71,22 +60,16 @@ async function fetchTestCases(url) {
     });
 
 
-    console.log('Test Cases:', testCases); // Log the extracted test cases for debugging
+    console.log('Test Cases:', testCases);
 
     await browser.close();
     return testCases;
 }
 
-/**
- * Saves the test cases to input and output files in the workspace.
- * @param {{ input: string, output: string }[]} testCases
- * @param {string} workspacePath
- */
+
 function saveTestCases(testCases, workspacePath) {
     
-    const testCaseFolder = path.join(workspacePath, 'TestCases'); // Specify the TestCases folder
-
-    // Create the folder if it doesn't exist
+    const testCaseFolder = path.join(workspacePath, 'TestCases'); 
     if (!fs.existsSync(testCaseFolder)) {
         fs.mkdirSync(testCaseFolder);
     }
